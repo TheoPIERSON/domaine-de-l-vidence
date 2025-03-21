@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="/public/images/Grece Antique.jpg" alt="" />
+    <img class="duration-200" src="/images/domaine.jpg" alt="" />
   </div>
 </template>
 
