@@ -1,7 +1,10 @@
 <template>
   <div class="font-cormorant">
     <!-- Navbar principale transparente -->
-    <nav class="flex justify-between items-center p-6 px-32 fixed w-full z-50">
+    <nav
+      class="flex justify-between items-center p-8 px-32 fixed w-full z-50 border-b border-gray-300 transition-transform duration-300 ease-in-out"
+      :class="{ 'translate-y-0': !isScrollingDown || menuOpen, '-translate-y-full': isScrollingDown && !menuOpen }"
+    >
       <div class="grid place-items-center text-black">
         <p>Emoji rose</p>
         <p>Le Domaine de l'Evidence</p>
@@ -43,9 +46,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 const menuOpen = ref(false);
+const isScrollingDown = ref(false);
+const lastScrollTop = ref(0);
+const scrollThreshold = 10; // Le nombre de pixels de défilement nécessaire pour déclencher le changement
 
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value;
@@ -56,6 +62,29 @@ const closeMenu = () => {
   menuOpen.value = false;
   document.body.style.overflow = "";
 };
+
+const handleScroll = () => {
+  const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+
+  // Vérifie si l'utilisateur a défilé suffisamment pour déclencher le changement
+  if (Math.abs(currentScrollTop - lastScrollTop.value) < scrollThreshold) return;
+
+  // Déterminer la direction du défilement
+  isScrollingDown.value = currentScrollTop > lastScrollTop.value;
+
+  // Mettre à jour la position de défilement précédente
+  lastScrollTop.value = currentScrollTop;
+};
+
+// Ajouter l'écouteur d'événement au montage du composant
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+// Nettoyer l'écouteur d'événement lors du démontage du composant
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 </script>
 
 <style scoped>
@@ -73,13 +102,12 @@ const closeMenu = () => {
 /* Overlay pour améliorer la lisibilité du texte */
 .menu-bg::before {
   content: "";
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: -10;
+  z-index: -1;
 }
 
 /* Classe qui rend le menu visible */
