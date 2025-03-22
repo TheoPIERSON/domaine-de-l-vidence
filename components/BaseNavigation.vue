@@ -2,7 +2,7 @@
   <div class="font-cormorant">
     <!-- Navbar principale transparente -->
     <nav
-      class="flex justify-between items-center p-8 px-32 fixed w-full z-50 border-b border-gray-300 transition-transform duration-300 ease-in-out"
+      class="flex justify-between items-center p-8 px-32 fixed w-full z-50 border-b border-gray-300 transition-transform duration-300 ease-in-out bg-white bg-opacity-10"
       :class="{ 'translate-y-0': !isScrollingDown || menuOpen, '-translate-y-full': isScrollingDown && !menuOpen }"
     >
       <div class="grid place-items-center text-black">
@@ -17,12 +17,14 @@
       </div>
     </nav>
 
-    <!-- Menu plein écran toujours présent mais caché -->
+    <!-- Menu plein écran qui suit la position de défilement -->
     <div
-      class="fixed inset-0 menu-bg z-40 flex flex-col transition-opacity duration-300 ease-in-out"
+      class="fixed z-40 flex flex-col transition-opacity duration-300 ease-in-out menu-container"
       :class="{ 'opacity-100 visible': menuOpen, 'opacity-0 invisible': !menuOpen }"
+      :style="menuOpen ? { top: '0', bottom: '0', left: '0', right: '0' } : {}"
     >
-      <div class="p-8 pt-24 mb-20">
+      <div class="menu-bg w-full h-full absolute"></div>
+      <div class="p-8 pt-24 mb-20 mt-10 relative z-10">
         <ul class="space-y-8 text-2xl text-white">
           <li><a href="#" class="hover:underline" @click="closeMenu">Accueil</a></li>
           <li><a href="#" class="hover:underline" @click="closeMenu">Les appartements</a></li>
@@ -36,7 +38,7 @@
           </li>
         </ul>
       </div>
-      <div class="ml-8">
+      <div class="ml-8 relative z-10">
         <a href="#" class="p-4 px-8 m-10 bg-rose-800 hover:bg-rose-900 text-white text-2xl" @click="closeMenu"
           >Réserver</a
         >
@@ -88,15 +90,18 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* Conteneur du menu */
+.menu-container {
+  opacity: 0;
+  visibility: hidden;
+}
+
 /* Image d'arrière-plan pour le menu plein écran */
 .menu-bg {
   background-image: url("/images/nordique-bain.webp");
   background-size: cover;
   background-position: center;
   position: absolute;
-  height: 100vh;
-  opacity: 0;
-  visibility: hidden;
 }
 
 /* Overlay pour améliorer la lisibilité du texte */
@@ -107,7 +112,8 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 0;
 }
 
 /* Classe qui rend le menu visible */
