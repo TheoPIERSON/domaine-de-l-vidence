@@ -1,27 +1,40 @@
 <template>
-  <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-4">{{ roomTitle }}</h1>
-
-    <div class="grid md:grid-cols-2 gap-8">
-      <div>
-        <img :src="roomImage" :alt="roomTitle" class="w-full h-auto object-cover rounded-lg" />
-      </div>
-      <div>
-        <h2 class="text-2xl font-semibold mb-4">Description</h2>
-        <p>{{ roomDescription }}</p>
-
-        <div class="mt-6">
-          <h3 class="text-xl font-medium mb-3">Équipements</h3>
-          <ul class="list-disc list-inside">
-            <li v-for="(equipment, index) in roomEquipments" :key="index">
-              {{ equipment }}
-            </li>
-          </ul>
-        </div>
+  <section class="font-cormorant">
+    <div class="relative h-auto w-screen overflow-hidden">
+      <img :src="roomImage" :alt="roomTitle" class="w-screen h-[70vh] object-cover" />
+      <div class="absolute inset-0 flex items-center justify-center">
+        <h2 class="text-white text-8xl font-semibold text-center drop-shadow-md">
+          {{ roomTitle }}
+        </h2>
       </div>
     </div>
-  </div>
+
+    <div class="grid place-items-center w-full">
+      <h3 class="text-center text-5xl p-20 w-2/3">{{ roomDescription }}</h3>
+
+      <div class="mt-6">
+        <ul class="list-disc list-inside">
+          <li v-for="(equipment, index) in roomEquipments" :key="index">
+            {{ equipment }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="grid grid-cols-3 gap-6 p-24">
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+    <img src="/images/Grece antique.jpg" class="w-full h-full object-cover" />
+  </section>
 </template>
+
+<!-- Le reste du code reste identique -->
 
 <script setup lang="ts">
 // Définition d'un type pour une chambre
@@ -35,8 +48,8 @@ interface Room {
 // Typage de l'objet roomsData
 const roomsData: Record<string, Room> = {
   "gite-piscine": {
-    title: "Gite avec piscine",
-    description: "Un gîte spacieux avec une piscine privée pour des vacances de détente.",
+    title: "Gîte avec piscine",
+    description: "Gîte spacieux avec piscine pour des vacances de détente.",
     image: "/images/domaine.jpg",
     equipments: ["Piscine privée", "Terrasse", "Cuisine équipée", "Climatisation"],
   },
