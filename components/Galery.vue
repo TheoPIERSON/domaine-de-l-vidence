@@ -1,7 +1,5 @@
 <template>
-  <Hero />
-  <DomainePresentation />
-  <Commodities />
+  <div></div>
 </template>
 
 <script setup lang="ts"></script>
