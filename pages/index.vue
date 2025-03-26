@@ -2,6 +2,7 @@
   <Hero />
   <DomainePresentation />
   <Commodities />
+  <Galery />
 </template>
 
 <script setup lang="ts"></script>
