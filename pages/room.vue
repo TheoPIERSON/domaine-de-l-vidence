@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <BaseNavigation /><slot />
-    <Footer />
-  </div>
+  <RoomDetails />
 </template>
 
 <script setup lang="ts"></script>

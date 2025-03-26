@@ -26,10 +26,11 @@
       <div class="menu-bg w-full h-full absolute"></div>
       <div class="p-8 pt-24 mb-20 mt-10 relative z-10">
         <ul class="space-y-8 text-2xl text-white">
-          <li><a href="#" class="hover:underline" @click="closeMenu">Accueil</a></li>
-          <li><a href="#" class="hover:underline" @click="closeMenu">Les appartements</a></li>
-          <li><a href="#" class="hover:underline" @click="closeMenu">Les prestations</a></li>
-          <li><a href="#" class="hover:underline" @click="closeMenu">Accès & Contact</a></li>
+          <li><NuxtLink to="/" class="hover:underline" @click="closeMenu">Accueil</NuxtLink></li>
+
+          <li><NuxtLink to="/rooms" class="hover:underline" @click="closeMenu">Les appartements</NuxtLink></li>
+          <li><NuxtLink to="/" class="hover:underline" @click="closeMenu">Les prestations</NuxtLink></li>
+          <li><NuxtLink to="/" class="hover:underline" @click="closeMenu">Accès & Contact</NuxtLink></li>
           <li>
             <a href="#" class="hover:underline" @click="closeMenu">
               Français
