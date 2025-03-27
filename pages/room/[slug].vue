@@ -25,6 +25,7 @@
   <section class="grid grid-cols-3 gap-6 p-24 bg-amber-50">
     <img v-for="(image, index) in roomGalleryImages" :key="index" :src="image" class="w-full h-full object-cover" />
   </section>
+  <section class="p-10">description du logement</section>
 </template>
 
 <script setup lang="ts">
