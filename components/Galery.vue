@@ -1,10 +1,10 @@
 <template>
   <section class="bg-amber-50 font-cormorant p-8 h-auto">
     <div class="p-24 grid place-items-center">
-      <h2 class="text-7xl text-gray-900 text-center w-2/3 tracking-widest p-2">
+      <h2 ref="galeryTitle" class="text-7xl text-gray-900 text-center w-2/3 tracking-widest p-2">
         Accueil chaleureux et service irréprochable
       </h2>
-      <p class="text-xl text-gray-900 w-2/3 text-center p-2">
+      <p ref="galeryDescription" class="text-xl text-gray-900 w-2/3 text-center p-2">
         Votre bien-être est le maitre mot au Domaine de l'Evidence. Faciliter votre séjour et en faire un pur moment de
         détente est notre priorité.
       </p>
@@ -19,19 +19,27 @@
           getSizeClass(index),
         ]"
       >
-        <img :src="image.url" :alt="image.alt" class="w-full h-full object-cover" />
+        <img ref="images" :src="image.url" :alt="image.alt" class="w-full h-full object-cover" />
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface GalleryImage {
   url: string;
   alt: string;
 }
+// Enregistrer le plugin ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
+const images = ref<HTMLElement | null>(null);
+const galeryTitle = ref<HTMLElement | null>(null);
+const galeryDescription = ref<HTMLElement | null>(null);
 
 const galleryImages = ref<GalleryImage[]>([
   { url: "/images/gite-serviette.jpeg", alt: "image gite-serviette" },
@@ -60,6 +68,55 @@ const getSizeClass = (index: number) => {
   ];
   return sizeClasses[index];
 };
+
+onMounted(() => {
+  // Fonction générique pour animer un élément avec ScrollTrigger
+  const animateWithScrollTrigger = (
+    element: HTMLElement | null,
+    fromOptions: gsap.TweenVars,
+    toOptions: gsap.TweenVars,
+    delay = 0
+  ) => {
+    if (!element) return;
+
+    gsap.fromTo(element, fromOptions, {
+      ...toOptions,
+      duration: 1,
+      delay: delay,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: element,
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  };
+
+  // Animation des textes
+  if (galeryTitle.value) {
+    animateWithScrollTrigger(
+      galeryTitle.value,
+      { opacity: 0, y: 50, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1 },
+      0.2
+    );
+  }
+
+  if (galeryDescription.value) {
+    animateWithScrollTrigger(
+      galeryDescription.value,
+      { opacity: 0, y: 50, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1 },
+      0.4
+    );
+  }
+
+  // Animation de l'image de gauche
+  if (images.value) {
+    animateWithScrollTrigger(images.value, { opacity: 0, scale: 0.95 }, { opacity: 1, x: 0, scale: 1 }, 0.6);
+  }
+});
 </script>
 
 <style scoped>
