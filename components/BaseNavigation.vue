@@ -5,10 +5,10 @@
       class="flex justify-between items-center p-8 px-32 fixed w-full z-50 border-b border-gray-300 transition-transform duration-300 ease-in-out bg-white bg-opacity-10"
       :class="{ 'translate-y-0': !isScrollingDown || menuOpen, '-translate-y-full': isScrollingDown && !menuOpen }"
     >
-      <div class="grid place-items-center text-black">
+      <a href="/" class="grid place-items-center text-black">
         <p>Emoji rose</p>
         <p>Le Domaine de l'Evidence</p>
-      </div>
+      </a>
       <div>
         <button @click="toggleMenu" class="focus:outline-none relative">
           <Icon v-if="!menuOpen" name="prime:align-right" style="color: black" class="w-6 h-6" />

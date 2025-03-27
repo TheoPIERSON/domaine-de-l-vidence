@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="flex">
     <div>
       <ul>
         <li>Infos de contact</li>
