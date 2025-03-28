@@ -1,44 +1,49 @@
 <template>
-  <section class="p-10 h-auto">
-    <div class="px-14 pt-20">
+  <section class="p-4 md:p-10 h-auto">
+    <div class="md:px-14 pt-20">
       <NuxtLink to="/room/bain-nordique" class="flex justify-around w-full h-1/2">
-        <img ref="nordicImage1" class="p-1 pr-10 w-2/3 h-auto" src="/images/nordique-bain.webp" alt="" />
-        <img ref="nordicImage2" class="p-1 pl-10 w-1/3 h-auto" src="/images/nordique-sdb.jpeg" alt="" />
+        <img ref="nordicImage1" class="p-1 md:pr-10 md:w-2/3 h-auto" src="/images/nordique-bain.webp" alt="" />
+        <img ref="nordicImage2" class="hidden md:block p-1 pl-10 w-1/3 h-auto" src="/images/nordique-sdb.jpeg" alt="" />
       </NuxtLink>
-      <h3 ref="nordicTitle" class="py-5 text-5xl font-thin text-gray-900 tracking-widest">
+      <h3 ref="nordicTitle" class="py-5 text-3xl md:text-5xl font-thin text-gray-900 tracking-widest">
         <NuxtLink to="/room/bain-nordique"> Notre appartement avec bain nordique</NuxtLink>
       </h3>
-      <p ref="nordicDescription" class="text-2xl text-gray-900 w-1/2 mb-10">
+      <p ref="nordicDescription" class="text-xl md:text-2xl text-gray-900 md:w-1/2 mb-10">
         Relaxez vous dans un appartement isolé équipé d'un bain nordique parfait pour se détendre sous les étoiles.
       </p>
     </div>
 
-    <div class="px-14 pt-20">
+    <div class="md:px-14 pt-20">
       <NuxtLink to="/room/gite-piscine" class="flex justify-around w-full h-1/2">
-        <img ref="giteImage1" class="p-1 pr-10 w-1/3 object-cover" src="/images/gite-chambre.webp" alt="" />
+        <img ref="giteImage1" class="p-1 md:pr-10 md:w-1/3 object-cover" src="/images/gite-chambre.webp" alt="" />
         <img
           ref="giteImage2"
-          class="p-1 pl-10 w-2/3 custom-height object-cover"
+          class="hidden md:block p-1 pl-10 w-2/3 custom-height object-cover"
           src="/images/gite-cuisine.webp"
           alt=""
         />
       </NuxtLink>
-      <h3 ref="giteTitle" class="py-5 text-5xl font-thin text-gray-900 tracking-widest">
+      <h3 ref="giteTitle" class="py-5 text-3xl md:text-5xl font-thin text-gray-900 tracking-widest">
         <NuxtLink to="/room/gite-piscine"> Notre gîte avec piscine</NuxtLink>
       </h3>
-      <p ref="giteDescription" class="text-2xl text-gray-900 w-1/2 mb-10">
+      <p ref="giteDescription" class="text-xl md:text-2xl text-gray-900 md:w-1/2 mb-10">
         Relaxez vous dans un appartement équipé parfait pour se détendre et profiter de la piscine.
       </p>
     </div>
-    <div class="px-14 pt-20">
+    <div class="md:px-14 pt-20">
       <NuxtLink to="/room/spa-privatif" class="flex justify-around w-full h-1/2">
-        <img ref="spaImage1" class="p-1 pr-10 w-2/3 custom-height object-cover" src="/images/spa-jaccuzi.webp" alt="" />
-        <img ref="spaImage2" class="p-1 pl-10 w-1/3 h-auto" src="/images/spa-chambre.webp" alt="" />
+        <img
+          ref="spaImage1"
+          class="p-1 md:pr-10 md:w-2/3 md:custom-height object-cover"
+          src="/images/spa-jaccuzi.webp"
+          alt=""
+        />
+        <img ref="spaImage2" class="hidden md:block p-1 pl-10 w-1/3 h-auto" src="/images/spa-chambre.webp" alt="" />
       </NuxtLink>
-      <h3 ref="spaTitle" class="py-5 text-5xl font-thin text-gray-900 tracking-widest">
+      <h3 ref="spaTitle" class="py-5 text-3xl md:text-5xl font-thin text-gray-900 tracking-widest">
         <NuxtLink to="/room/spa-privatif"> Notre chambre avec spa privatif</NuxtLink>
       </h3>
-      <p ref="spaDescription" class="text-2xl text-gray-900 w-1/2 mb-10">
+      <p ref="spaDescription" class="text-xl md:text-2xl text-gray-900 md:w-1/2 mb-10">
         Profitez d'un moment de détente dans une ambiance intimiste.
       </p>
     </div>

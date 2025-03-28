@@ -2,7 +2,7 @@
   <div class="font-cormorant">
     <!-- Navbar principale transparente -->
     <nav
-      class="flex justify-between items-center p-8 px-32 fixed w-full z-50 border-b border-gray-300 transition-transform duration-300 ease-in-out bg-white bg-opacity-10"
+      class="flex justify-between items-center p-6 px-10 md:px-32 fixed w-screen md:w-full z-50 border-b border-gray-300 transition-transform duration-300 ease-in-out bg-white bg-opacity-10"
       :class="{ 'translate-y-0': !isScrollingDown || menuOpen, '-translate-y-full': isScrollingDown && !menuOpen }"
     >
       <a href="/" class="grid place-items-center text-black">

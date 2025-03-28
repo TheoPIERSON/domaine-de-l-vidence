@@ -1,10 +1,10 @@
 <template>
   <section class="relative font-cormorant">
-    <img class="w-full" src="/images/domaine.jpg" alt="" />
+    <img class="object-cover w-screen h-[60vh] md:h-auto md:w-full" src="/images/domaine.jpg" alt="" />
     <div class="absolute inset-0 bg-black bg-opacity-20 grid place-items-center text-center">
-      <div class="w-full mb-32">
+      <div class="w-full md:mb-32 pt-10">
         <p class="text-white font-thin opacity-0 animate-fadeIn2">Le domaine de l'Evidence · Pas-de-Calais, France</p>
-        <h1 class="text-white text-8xl opacity-0 animate-fadeIn1">
+        <h1 class="text-white text-5xl md:text-8xl opacity-0 animate-fadeIn1">
           Bienvenue au <br />
           Domaine de l'Evidence
         </h1>

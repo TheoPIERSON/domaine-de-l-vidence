@@ -1,14 +1,16 @@
 <template>
   <section class="bg-amber-50 font-cormorant p-8 h-auto">
-    <h2 class="p-24 text-7xl font-thin text-gray-900 w-full tracking-widest">
+    <h2 class="p-4 md:p-24 text-3xl md:text-7xl font-thin text-gray-900 w-full tracking-wide md:tracking-widest">
       <span v-for="(word, index) in titleWords" :key="index" ref="wordRefs" class="inline-block opacity-0 mr-4">
         {{ word }}
       </span>
     </h2>
-    <p ref="descriptionRef1" class="text-2xl text-gray-900 w-2/5 ml-24">
+    <p ref="descriptionRef1" class="text-xl md:text-2xl text-gray-900 md:w-2/5 ml-4 md:ml-24">
       Le domaine de l'Evidence propose des lieux d'évasion et de tranquilité en proximité de la métropole Lilloise.
     </p>
-    <p ref="descriptionRef2" class="text-2xl text-gray-900 w-1/2 ml-24 mb-10">Venez découvrir nos habitations.</p>
+    <p ref="descriptionRef2" class="text-xl md:text-2xl text-gray-900 md:w-1/2 ml-4 md:ml-24 mb-10">
+      Venez découvrir nos habitations.
+    </p>
     <a
       ref="buttonRef"
       href="https://www.ledomainedelevidence.com/fr/chambres.fr"
