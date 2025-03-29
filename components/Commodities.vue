@@ -1,19 +1,19 @@
 <template>
-  <section class="font-cormorant p-8 h-auto">
-    <div class="p-24 grid place-items-center">
-      <h2 ref="commoditiesTitle" class="text-7xl text-gray-900 text-center w-2/3 tracking-widest p-2">
+  <section class="font-cormorant md:p-8 h-auto">
+    <div class="p-12 md:p-24 grid place-items-center">
+      <h2 ref="commoditiesTitle" class="text-3xl md:text-7xl text-gray-900 text-center md:w-2/3 tracking-widest p-2">
         Commodités, Soin et Bien-être
       </h2>
-      <p ref="commoditiesDescription" class="text-xl text-gray-900 w-2/3 text-center p-2">
+      <p ref="commoditiesDescription" class="text-xl text-gray-900 md:w-2/3 text-center p-2">
         Le temps s'arrête dès que l'arrivée dans le domaine où le calme et la tranquillité sont de mise.
       </p>
     </div>
     <div class="flex justify-center items-center">
-      <div ref="imageLeft" class="grid place-items-start w-1/2 p-8">
+      <div ref="imageLeft" class="grid place-items-start w-1/2 p-4 md:p-8">
         <img class="object-cover w-full h-96" src="/images/gite-serviette.jpeg" alt="" />
         <p>Découvrir</p>
       </div>
-      <div ref="imageRight" class="grid place-items-start w-1/2 p-8">
+      <div ref="imageRight" class="grid place-items-start w-1/2 p-4 md:p-8">
         <img class="object-cover w-full h-96" src="/images/piscine.jpeg" alt="" />
         <p>Découvrir</p>
       </div>

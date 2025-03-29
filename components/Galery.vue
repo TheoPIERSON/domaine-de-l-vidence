@@ -1,16 +1,16 @@
 <template>
   <section class="bg-amber-50 font-cormorant p-8 h-auto">
-    <div class="p-24 grid place-items-center">
-      <h2 ref="galeryTitle" class="text-7xl text-gray-900 text-center w-2/3 tracking-widest p-2">
+    <div class="p-12 md:p-24 grid place-items-center">
+      <h2 ref="galeryTitle" class="text-3xl md:text-7xl text-gray-900 text-center md:w-2/3 tracking-wide p-2">
         Accueil chaleureux et service irréprochable
       </h2>
-      <p ref="galeryDescription" class="text-xl text-gray-900 w-2/3 text-center p-2">
+      <p ref="galeryDescription" class="text-xl text-gray-900 md:w-2/3 text-center p-2">
         Votre bien-être est le maitre mot au Domaine de l'Evidence. Faciliter votre séjour et en faire un pur moment de
         détente est notre priorité.
       </p>
     </div>
 
-    <div class="gallery-container grid grid-cols-2 gap-6 p-24">
+    <div class="gallery-container grid grid-cols-2 gap-6 p-12 md:p-24">
       <div
         v-for="(image, index) in galleryImages"
         :key="index"

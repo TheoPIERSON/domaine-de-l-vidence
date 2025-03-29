@@ -1,6 +1,6 @@
 <template>
   <section class="p-4 md:p-10 h-auto">
-    <div class="md:px-14 pt-20">
+    <div class="md:px-14 pt-10 md:pt-20">
       <NuxtLink to="/room/bain-nordique" class="flex justify-around w-full h-1/2">
         <img ref="nordicImage1" class="p-1 md:pr-10 md:w-2/3 h-auto" src="/images/nordique-bain.webp" alt="" />
         <img ref="nordicImage2" class="hidden md:block p-1 pl-10 w-1/3 h-auto" src="/images/nordique-sdb.jpeg" alt="" />
@@ -13,7 +13,7 @@
       </p>
     </div>
 
-    <div class="md:px-14 pt-20">
+    <div class="md:px-14 pt-10 md:pt-20">
       <NuxtLink to="/room/gite-piscine" class="flex justify-around w-full h-1/2">
         <img ref="giteImage1" class="p-1 md:pr-10 md:w-1/3 object-cover" src="/images/gite-chambre.webp" alt="" />
         <img
@@ -30,7 +30,7 @@
         Relaxez vous dans un appartement équipé parfait pour se détendre et profiter de la piscine.
       </p>
     </div>
-    <div class="md:px-14 pt-20">
+    <div class="md:px-14 pt-10 md:pt-20">
       <NuxtLink to="/room/spa-privatif" class="flex justify-around w-full h-1/2">
         <img
           ref="spaImage1"
