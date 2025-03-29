@@ -70,8 +70,9 @@
       :href="roomLink"
       target="_blank"
       class="p-3 px-8 m-6 md:mt-10 bg-orange-800 hover:bg-orange-900 text-white text-xl"
-      >Réserver</a
+      >Réserver*</a
     >
+    <p class="mt-4 text-sm">*En cliquant vous serez rediriger vers le site de reservation</p>
   </section>
 </template>
 

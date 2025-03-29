@@ -4,7 +4,10 @@
     <nav
       ref="navBar"
       class="flex justify-between items-center p-6 px-10 md:px-32 fixed w-screen md:w-full z-50 border-b border-gray-300 transition-transform duration-300 ease-in-out bg-white bg-opacity-20"
-      :class="{ 'translate-y-0': !isScrollingDown || menuOpen, '-translate-y-full': isScrollingDown && !menuOpen }"
+      :class="{
+        'translate-y-0': !isScrollingDown || menuOpen || isAtTop,
+        '-translate-y-full': isScrollingDown && !menuOpen && !isAtTop,
+      }"
     >
       <a href="/" class="grid place-items-center text-black">
         <p>Emoji rose</p>
@@ -41,8 +44,9 @@
       </div>
       <div class="ml-8 relative z-10">
         <a href="#" class="p-4 px-8 m-10 bg-rose-800 hover:bg-rose-900 text-white text-2xl" @click="closeMenu"
-          >Réserver</a
+          >Réserver*</a
         >
+        <p class="mt-4 text-sm text-gray-400">*En cliquant vous serez rediriger vers le site de reservation</p>
       </div>
     </div>
   </div>
@@ -60,6 +64,7 @@ const isScrollingDown = ref(false);
 const lastScrollTop = ref(0);
 const scrollThreshold = 10;
 const navBar = ref<HTMLElement | null>(null);
+const isAtTop = ref(true);
 
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value;
@@ -73,25 +78,25 @@ const closeMenu = () => {
 
 const handleScroll = () => {
   const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
-  if (Math.abs(currentScrollTop - lastScrollTop.value) < scrollThreshold) return;
-  isScrollingDown.value = currentScrollTop > lastScrollTop.value;
-  lastScrollTop.value = currentScrollTop;
+
+  // Vérifier si on est en haut de la page
+  isAtTop.value = currentScrollTop < 50;
+
+  // Déterminer la direction du défilement seulement si le seuil est dépassé
+  if (Math.abs(currentScrollTop - lastScrollTop.value) > scrollThreshold) {
+    isScrollingDown.value = currentScrollTop > lastScrollTop.value;
+    lastScrollTop.value = currentScrollTop;
+  }
 };
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
 
-  if (navBar.value) {
-    gsap.to(navBar.value, {
-      scrollTrigger: {
-        trigger: navBar.value,
-        start: "top top",
-        end: "bottom top",
-        toggleActions: "play none none reverse",
-      },
-      y: 0,
-    });
-  }
+  // Vérifier la position initiale
+  isAtTop.value = (window.scrollY || document.documentElement.scrollTop) < 50;
+
+  // Supprimer le ScrollTrigger de GSAP car nous utilisons notre propre logique
+  // pour contrôler l'apparition/disparition de la navbar
 });
 
 onUnmounted(() => {
