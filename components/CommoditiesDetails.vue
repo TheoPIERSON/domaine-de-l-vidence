@@ -1,0 +1,7 @@
+<template>
+  <section>hello</section>
+</template>
+
+<script setup lang="ts"></script>
+
+<style scoped></style>
