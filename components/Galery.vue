@@ -1,6 +1,6 @@
 <template>
   <section class="bg-amber-50 font-cormorant p-8 h-auto">
-    <div class="p-12 md:p-24 grid place-items-center">
+    <div class="p-10 md:p-24 grid place-items-center">
       <h2 ref="galeryTitle" class="text-3xl md:text-7xl text-gray-900 text-center md:w-2/3 tracking-wide p-2">
         Accueil chaleureux et service irréprochable
       </h2>
@@ -10,7 +10,7 @@
       </p>
     </div>
 
-    <div class="gallery-container grid grid-cols-2 gap-6 p-12 md:p-24">
+    <div class="gallery-container grid grid-cols-2 gap-6 p-8 md:p-24">
       <div
         v-for="(image, index) in galleryImages"
         :key="index"

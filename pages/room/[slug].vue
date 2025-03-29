@@ -1,28 +1,31 @@
 <template>
   <section class="font-cormorant bg-amber-50">
     <div class="relative h-auto w-screen overflow-hidden">
-      <img :src="roomImage" :alt="roomTitle" class="w-screen h-[70vh] object-cover" />
+      <img :src="roomImage" :alt="roomTitle" class="w-screen h-[40vh] md:h-[70vh] object-cover" />
       <div class="absolute inset-0 flex items-center justify-center">
-        <h2 class="text-white text-8xl font-semibold text-center drop-shadow-md">
+        <h2 class="text-white text-3xl md:text-8xl font-semibold text-center drop-shadow-md">
           {{ roomTitle }}
         </h2>
       </div>
     </div>
 
     <div class="grid place-items-center w-full">
-      <h3 class="text-center text-5xl p-20 w-2/3">{{ roomDescription }}</h3>
+      <h3 class="text-center text-2xl md:text-5xl p-10 md:p-20 md:w-2/3">{{ roomDescription }}</h3>
 
-      <div class="mt-6">
+      <div class="mx-8 md:mt-6">
         <p v-for="(equipment, index) in roomEquipments" :key="index">
           {{ equipment }}
         </p>
       </div>
-      <a :href="roomLink" target="_blank" class="p-3 px-8 mt-10 bg-orange-800 hover:bg-orange-900 text-white text-2xl"
+      <a
+        :href="roomLink"
+        target="_blank"
+        class="p-3 px-8 mt-6 md:mt-10 bg-orange-800 hover:bg-orange-900 text-white text-2xl"
         >Réserver</a
       >
     </div>
   </section>
-  <section class="grid grid-cols-3 gap-6 p-24 bg-amber-50">
+  <section class="grid grid-cols-3 gap-6 p-8 md:p-24 bg-amber-50">
     <img v-for="(image, index) in roomGalleryImages" :key="index" :src="image" class="w-full h-full object-cover" />
   </section>
   <section class="p-10">description du logement</section>
