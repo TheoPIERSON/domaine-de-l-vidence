@@ -25,109 +25,100 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Enregistrer le plugin ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
-
-// Mots du titre
 const titleText = "Un cocon de calme et de relaxation";
 const titleWords = computed(() => titleText.split(" "));
 
-// Créer des références pour les éléments à animer
+// Références aux éléments HTML
 const wordRefs = ref<HTMLElement[]>([]);
-const descriptionRef1 = ref(null);
-const descriptionRef2 = ref(null);
-const buttonRef = ref(null);
+const descriptionRef1 = ref<HTMLElement | null>(null);
+const descriptionRef2 = ref<HTMLElement | null>(null);
+const buttonRef = ref<HTMLElement | null>(null);
 
-onMounted(() => {
-  // Animation des mots du titre (de bas en haut)
-  gsap.fromTo(
-    wordRefs.value,
-    {
-      opacity: 0,
-      y: 50, // Départ du mot plus bas
-    },
-    {
-      opacity: 1,
-      y: 0, // Position finale
-      duration: 0.7,
-      stagger: 0.2, // Délai entre chaque mot
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: wordRefs.value[0],
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
+// Vérifier que le code s'exécute bien côté client
+if (process.client) {
+  import("gsap").then((module) => {
+    const gsap = module.gsap;
+    import("gsap/ScrollTrigger").then((plugin) => {
+      gsap.registerPlugin(plugin.ScrollTrigger);
 
-  // Animations précédentes conservées
-  gsap.fromTo(
-    descriptionRef1.value,
-    {
-      opacity: 0,
-      x: -50,
-    },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 1,
-      delay: 0.3,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: descriptionRef1.value,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
+      onMounted(() => {
+        if (!wordRefs.value.length || !descriptionRef1.value || !descriptionRef2.value || !buttonRef.value) return;
 
-  gsap.fromTo(
-    descriptionRef2.value,
-    {
-      opacity: 0,
-      x: -50,
-    },
-    {
-      opacity: 1,
-      x: 0,
-      duration: 1,
-      delay: 0.6,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: descriptionRef2.value,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
+        // Animation des mots du titre (de bas en haut)
+        gsap.fromTo(
+          wordRefs.value,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: wordRefs.value[0],
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
 
-  gsap.fromTo(
-    buttonRef.value,
-    {
-      opacity: 0,
-      scale: 0.8,
-    },
-    {
-      opacity: 1,
-      scale: 1,
-      duration: 1,
-      delay: 0.9,
-      ease: "back.out(1.7)",
-      scrollTrigger: {
-        trigger: buttonRef.value,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse",
-      },
-    }
-  );
-});
+        // Animation des descriptions
+        gsap.fromTo(
+          descriptionRef1.value,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            delay: 0.3,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: descriptionRef1.value,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+
+        gsap.fromTo(
+          descriptionRef2.value,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            delay: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: descriptionRef2.value,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+
+        // Animation du bouton
+        gsap.fromTo(
+          buttonRef.value,
+          { opacity: 0, scale: 0.8 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            delay: 0.9,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: buttonRef.value,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    });
+  });
+}
 </script>
 
 <style scoped>

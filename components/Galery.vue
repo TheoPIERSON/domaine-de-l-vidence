@@ -27,19 +27,16 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface GalleryImage {
   url: string;
   alt: string;
 }
-// Enregistrer le plugin ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
 
-const images = ref<HTMLElement | null>(null);
+// Références aux éléments à animer
 const galeryTitle = ref<HTMLElement | null>(null);
 const galeryDescription = ref<HTMLElement | null>(null);
+const imagesRefs = ref<HTMLElement[]>([]);
 
 const galleryImages = ref<GalleryImage[]>([
   { url: "/images/gite-serviette.jpeg", alt: "image gite-serviette" },
@@ -55,22 +52,27 @@ const galleryImages = ref<GalleryImage[]>([
 
 const getSizeClass = (index: number) => {
   const sizeClasses = [
-    "row-span-2", // Tall image
-    "row-span-1", // Standard image
-    "row-span-3", // Very tall image
-    "row-span-1", // Standard image
-    "row-span-2", // Tall image
-    "row-span-1", // Standard image  "row-span-2", // Tall image
-    "row-span-1", // Standard image
-    "row-span-3", // Very tall image
-    "row-span-1", // Standard image
-    "row-span-2", // Tall image
+    "row-span-2",
+    "row-span-1",
+    "row-span-3",
+    "row-span-1",
+    "row-span-2",
+    "row-span-1",
+    "row-span-2",
+    "row-span-1",
+    "row-span-3",
   ];
-  return sizeClasses[index];
+  return sizeClasses[index % sizeClasses.length]; // Sécurise contre un index hors limites
 };
 
-onMounted(() => {
-  // Fonction générique pour animer un élément avec ScrollTrigger
+onMounted(async () => {
+  if (!process.client) return; // Vérifie que le code s'exécute côté client
+
+  // Import dynamique de GSAP uniquement au montage du composant
+  const { gsap } = await import("gsap");
+  const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+  gsap.registerPlugin(ScrollTrigger);
+
   const animateWithScrollTrigger = (
     element: HTMLElement | null,
     fromOptions: gsap.TweenVars,
@@ -78,7 +80,6 @@ onMounted(() => {
     delay = 0
   ) => {
     if (!element) return;
-
     gsap.fromTo(element, fromOptions, {
       ...toOptions,
       duration: 1,
@@ -87,35 +88,30 @@ onMounted(() => {
       scrollTrigger: {
         trigger: element,
         start: "top 80%",
-        end: "bottom 20%",
         toggleActions: "play none none reverse",
       },
     });
   };
 
-  // Animation des textes
-  if (galeryTitle.value) {
-    animateWithScrollTrigger(
-      galeryTitle.value,
-      { opacity: 0, y: 50, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1 },
-      0.2
-    );
-  }
+  // Animation du titre et description
+  animateWithScrollTrigger(galeryTitle.value, { opacity: 0, y: 50, scale: 0.95 }, { opacity: 1, y: 0, scale: 1 }, 0.2);
 
-  if (galeryDescription.value) {
-    animateWithScrollTrigger(
-      galeryDescription.value,
-      { opacity: 0, y: 50, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1 },
-      0.4
-    );
-  }
+  animateWithScrollTrigger(
+    galeryDescription.value,
+    { opacity: 0, y: 50, scale: 0.95 },
+    { opacity: 1, y: 0, scale: 1 },
+    0.4
+  );
 
-  // Animation de l'image de gauche
-  if (images.value) {
-    animateWithScrollTrigger(images.value, { opacity: 0, scale: 0.95 }, { opacity: 1, x: 0, scale: 1 }, 0.6);
-  }
+  // Animation des images dans la galerie
+  imagesRefs.value.forEach((image, index) => {
+    animateWithScrollTrigger(
+      image,
+      { opacity: 0, scale: 0.95 },
+      { opacity: 1, scale: 1 },
+      0.2 + index * 0.1 // Délai progressif pour chaque image
+    );
+  });
 });
 </script>
 

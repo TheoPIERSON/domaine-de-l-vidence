@@ -52,49 +52,48 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-// Enregistrer le plugin ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
 
 // Références pour les images
-const nordicImage1 = ref(null);
-const nordicImage2 = ref(null);
-const giteImage1 = ref(null);
-const giteImage2 = ref(null);
-const spaImage1 = ref(null);
-const spaImage2 = ref(null);
+const nordicImage1 = ref<HTMLElement | null>(null);
+const nordicImage2 = ref<HTMLElement | null>(null);
+const giteImage1 = ref<HTMLElement | null>(null);
+const giteImage2 = ref<HTMLElement | null>(null);
+const spaImage1 = ref<HTMLElement | null>(null);
+const spaImage2 = ref<HTMLElement | null>(null);
 
 // Références pour les titres et descriptions
-const nordicTitle = ref(null);
-const nordicDescription = ref(null);
-const giteTitle = ref(null);
-const giteDescription = ref(null);
-const spaTitle = ref(null);
-const spaDescription = ref(null);
+const nordicTitle = ref<HTMLElement | null>(null);
+const nordicDescription = ref<HTMLElement | null>(null);
+const giteTitle = ref<HTMLElement | null>(null);
+const giteDescription = ref<HTMLElement | null>(null);
+const spaTitle = ref<HTMLElement | null>(null);
+const spaDescription = ref<HTMLElement | null>(null);
 
-onMounted(() => {
+onMounted(async () => {
+  if (!process.client) return; // Vérification pour éviter les erreurs côté serveur
+
+  // Importer GSAP uniquement après le montage du composant
+  const { gsap } = await import("gsap");
+  const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+
+  gsap.registerPlugin(ScrollTrigger);
+
   // Fonction pour animer les images avec un effet de fade in
-  const animateImageFadeIn = (imageRef: any, delay = 0) => {
+  const animateImageFadeIn = (imageRef: Ref<HTMLElement | null>, delay = 0) => {
+    if (!imageRef.value) return;
     gsap.fromTo(
       imageRef.value,
-      {
-        opacity: 0,
-        scale: 0.95, // Légèrement réduit
-        y: 10, // Décalage vers le bas
-      },
+      { opacity: 0, scale: 0.95, y: 10 },
       {
         opacity: 1,
         scale: 1,
         y: 0,
         duration: 0.5,
-        delay: delay,
+        delay,
         ease: "power.out",
         scrollTrigger: {
           trigger: imageRef.value,
           start: "top 80%",
-          end: "bottom 20%",
           toggleActions: "play none none reverse",
         },
       }
@@ -102,45 +101,38 @@ onMounted(() => {
   };
 
   // Fonction pour animer les textes avec un effet de fade depuis la gauche
-  const animateTextFadeFromLeft = (textRef: any, delay = 0) => {
+  const animateTextFadeFromLeft = (textRef: Ref<HTMLElement | null>, delay = 0) => {
+    if (!textRef.value) return;
     gsap.fromTo(
       textRef.value,
-      {
-        opacity: 0,
-        x: -50, // Démarre à gauche
-        scale: 0.95,
-      },
+      { opacity: 0, x: -50, scale: 0.95 },
       {
         opacity: 1,
-        x: 0, // Position finale
+        x: 0,
         scale: 1,
         duration: 0.6,
-        delay: delay,
+        delay,
         ease: "power2.out",
         scrollTrigger: {
           trigger: textRef.value,
           start: "top 80%",
-          end: "bottom 20%",
           toggleActions: "play none none reverse",
         },
       }
     );
   };
 
-  // Animer les images de chaque section
-  // Section Bain Nordique
+  // Animer les éléments de chaque section
   animateImageFadeIn(nordicImage1);
   animateImageFadeIn(nordicImage2, 0.2);
   animateTextFadeFromLeft(nordicTitle, 0.3);
   animateTextFadeFromLeft(nordicDescription, 0.4);
 
-  // Section Gîte
   animateImageFadeIn(giteImage1, 0.3);
   animateImageFadeIn(giteImage2, 0.4);
   animateTextFadeFromLeft(giteTitle, 0.3);
   animateTextFadeFromLeft(giteDescription, 0.4);
 
-  // Section Spa
   animateImageFadeIn(spaImage1, 0.3);
   animateImageFadeIn(spaImage2, 0.4);
   animateTextFadeFromLeft(spaTitle, 0.3);
