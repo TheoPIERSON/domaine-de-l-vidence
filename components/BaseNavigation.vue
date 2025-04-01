@@ -55,10 +55,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 
-// Déclarez gsap et ScrollTrigger sans les importer immédiatement
-let gsap;
-let ScrollTrigger;
-
+// Déclaration des variables réactives
 const menuOpen = ref(false);
 const isScrollingDown = ref(false);
 const lastScrollTop = ref(0);
@@ -66,16 +63,19 @@ const scrollThreshold = 10;
 const navBar = ref<HTMLElement | null>(null);
 const isAtTop = ref(true);
 
+// Fonction pour ouvrir/fermer le menu
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value;
   document.body.style.overflow = menuOpen.value ? "hidden" : "";
 };
 
+// Fonction pour fermer le menu
 const closeMenu = () => {
   menuOpen.value = false;
   document.body.style.overflow = "";
 };
 
+// Gestion du scroll pour l'affichage/masquage de la navbar
 const handleScroll = () => {
   const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
 
@@ -90,18 +90,37 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
-  // Importez et initialisez GSAP uniquement côté client
-  if (process.client) {
-    gsap = require("gsap");
-    ScrollTrigger = require("gsap/ScrollTrigger").ScrollTrigger;
-    gsap.registerPlugin(ScrollTrigger);
+  // Importer GSAP uniquement côté client
+  if (typeof window !== "undefined") {
+    import("gsap")
+      .then((gsapModule) => {
+        const gsap = gsapModule.default || gsapModule.gsap;
+
+        import("gsap/ScrollTrigger")
+          .then((ScrollTriggerModule) => {
+            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Vous pouvez initialiser des animations GSAP ici si nécessaire
+          })
+          .catch((err) => {
+            console.error("Erreur lors du chargement de ScrollTrigger:", err);
+          });
+      })
+      .catch((err) => {
+        console.error("Erreur lors du chargement de GSAP:", err);
+      });
   }
 
+  // Ajouter l'écouteur d'événement de défilement
   window.addEventListener("scroll", handleScroll);
+
+  // Vérifier la position initiale du défilement
   isAtTop.value = (window.scrollY || document.documentElement.scrollTop) < 50;
 });
 
 onUnmounted(() => {
+  // Nettoyer l'écouteur d'événement lors du démontage du composant
   window.removeEventListener("scroll", handleScroll);
 });
 </script>
