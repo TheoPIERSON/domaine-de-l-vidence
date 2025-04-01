@@ -8,8 +8,8 @@
     </div>
   </section>
   <section class="font-cormorant grid place-items-center w-full pb-20 border-b">
-    <h3 class="text-center text-5xl p-20">Nos prestations bien-être</h3>
-    <div class="flex justify-around">
+    <h3 class="text-center text-5xl pt-20 px-4 pb-4">Nos prestations bien-être</h3>
+    <div class="grid md:flex justify-around">
       <div class="p-8">
         <img src="/images/Massage.jpeg" class="object-cover" />
         <h4>Massages</h4>

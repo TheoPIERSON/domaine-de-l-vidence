@@ -8,8 +8,8 @@
     </div>
   </section>
   <section class="font-cormorant grid place-items-center w-full">
-    <h3 class="text-center text-5xl p-20">Nos planches apéro</h3>
-    <div class="flex justify-around">
+    <h3 class="text-center text-5xl pt-20 pb-12">Nos planches apéro</h3>
+    <div class="grid md:flex justify-around">
       <div class="p-8">
         <img src="/images/planche.jpg" class="object-cover" />
         <h4>Planche complète</h4>
@@ -29,13 +29,13 @@
   </section>
   <section class="font-cormorant grid place-items-center w-full pb-20 border-b">
     <h3 class="text-center text-5xl p-20">Petit déjeuner et boissons</h3>
-    <div class="flex justify-around">
-      <div class="p-8 w-1/2">
+    <div class="grid md:flex justify-around">
+      <div class="p-8 md:w-1/2">
         <img src="/images/planche.jpg" class="object-cover" />
         <h4>Petit déjeuner</h4>
         <p>Composition du petit déjeuner</p>
       </div>
-      <div class="p-8 w-1/2">
+      <div class="p-8 md:w-1/2">
         <h4>Nos boissons</h4>
         <ul class="p-8">
           <li class="flex justify-between p-2"><span>Coca Cola</span> <span>5€</span></li>
