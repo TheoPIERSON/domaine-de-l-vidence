@@ -54,10 +54,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+// Déclarez gsap et ScrollTrigger sans les importer immédiatement
+let gsap;
+let ScrollTrigger;
 
 const menuOpen = ref(false);
 const isScrollingDown = ref(false);
@@ -90,13 +90,15 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
+  // Importez et initialisez GSAP uniquement côté client
+  if (process.client) {
+    gsap = require("gsap");
+    ScrollTrigger = require("gsap/ScrollTrigger").ScrollTrigger;
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
   window.addEventListener("scroll", handleScroll);
-
-  // Vérifier la position initiale
   isAtTop.value = (window.scrollY || document.documentElement.scrollTop) < 50;
-
-  // Supprimer le ScrollTrigger de GSAP car nous utilisons notre propre logique
-  // pour contrôler l'apparition/disparition de la navbar
 });
 
 onUnmounted(() => {
