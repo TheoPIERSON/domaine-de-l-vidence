@@ -89,34 +89,41 @@ const handleScroll = () => {
   }
 };
 
+// Utiliser useNuxtApp si vous êtes dans un environnement Nuxt 3
+let gsapInitialized = false;
+
 onMounted(() => {
-  // Importer GSAP uniquement côté client
-  if (typeof window !== "undefined") {
-    import("gsap")
-      .then((gsapModule) => {
-        const gsap = gsapModule.default || gsapModule.gsap;
-
-        import("gsap/ScrollTrigger")
-          .then((ScrollTriggerModule) => {
-            const ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
-            gsap.registerPlugin(ScrollTrigger);
-
-            // Vous pouvez initialiser des animations GSAP ici si nécessaire
-          })
-          .catch((err) => {
-            console.error("Erreur lors du chargement de ScrollTrigger:", err);
-          });
-      })
-      .catch((err) => {
-        console.error("Erreur lors du chargement de GSAP:", err);
-      });
-  }
-
-  // Ajouter l'écouteur d'événement de défilement
+  // Ajouter l'écouteur d'événement de défilement immédiatement
   window.addEventListener("scroll", handleScroll);
 
   // Vérifier la position initiale du défilement
   isAtTop.value = (window.scrollY || document.documentElement.scrollTop) < 50;
+
+  // Importer GSAP uniquement côté client avec vérification stricte
+  if (typeof window !== "undefined" && !gsapInitialized) {
+    try {
+      // Éviter complètement l'utilisation de GSAP dans ce composant si vous n'en avez pas besoin
+      // Si vous en avez besoin pour d'autres animations, utilisez ce bloc :
+      /*
+      setTimeout(() => {
+        // Utiliser un timeout pour s'assurer que l'application est entièrement chargée
+        const gsapImport = require('gsap');
+        const gsap = gsapImport.default || gsapImport;
+        
+        if (gsap && typeof gsap.registerPlugin === 'function') {
+          const ScrollTriggerImport = require('gsap/ScrollTrigger');
+          const ScrollTrigger = ScrollTriggerImport.ScrollTrigger;
+          gsap.registerPlugin(ScrollTrigger);
+          gsapInitialized = true;
+          
+          // Initialisez vos animations GSAP ici
+        }
+      }, 100);
+      */
+    } catch (err) {
+      console.error("GSAP n'est pas disponible:", err);
+    }
+  }
 });
 
 onUnmounted(() => {
