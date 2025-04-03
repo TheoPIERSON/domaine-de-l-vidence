@@ -38,7 +38,12 @@
           src="/images/spa-jaccuzi.webp"
           alt=""
         />
-        <img ref="spaImage2" class="hidden md:block p-1 pl-10 w-1/3 h-auto" src="/images/spa-chambre.webp" alt="" />
+        <img
+          ref="spaImage2"
+          class="hidden md:block p-1 pl-10 w-1/3 h-auto object-cover"
+          src="/images/spa-chambre.webp"
+          alt=""
+        />
       </NuxtLink>
       <h3 ref="spaTitle" class="py-5 text-3xl md:text-5xl font-thin text-gray-900 tracking-widest">
         <NuxtLink to="/room/spa-privatif"> Notre chambre avec spa privatif</NuxtLink>

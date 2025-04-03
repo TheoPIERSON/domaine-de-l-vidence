@@ -2,6 +2,7 @@
   <Hero />
   <DomainePresentation />
   <Commodities />
+  <CustomerReview />
   <Galery />
 </template>
 
